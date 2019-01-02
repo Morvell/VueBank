@@ -11,9 +11,9 @@
         <div class="form-group" :class="{ 'form-group--error': $v.cardNumber.$error }"
              id="card-number-field">
           <the-mask mask="####-####-####-####"
-                 class="form-control"
-                 v-model.trim="$v.cardNumber.$model"
-                 id="cardNumber"/>
+                    class="form-control"
+                    v-model.trim="$v.cardNumber.$model"
+                    id="cardNumber"/>
         </div>
         <div class="error" v-if="(!$v.cardNumber.required && $v.cardNumber.dirty)">Name is
           required
@@ -24,34 +24,50 @@
 
         <div id="expiration-date">
           <the-mask type="text"
-                    mask="##/##"
-                        placeholder="MM/ГГ"
-                        v-model.trim="$v.date.$model"
-                        class="form-control" id="date"/>
+                    mask="F#/F#" :tokens="{
+                    F : {
+                    pattern: /[0-1]/
+                    },
+                    '#': {pattern: /\d/}
+                    }"
+                    placeholder="MM/ГГ"
+                    v-model.trim="$v.date.$model"
+                    class="form-control" id="date"/>
         </div>
         <div id="cvv">
           <the-mask mask="###"
-                 placeholder="CVV"
-                 v-model.trim="$v.cvv.$model"
-                 class="form-control"
-                 id="cvv"/>
+                    placeholder="CVV"
+                    v-model.trim="$v.cvv.$model"
+                    class="form-control"
+                    id="cvv"/>
         </div>
       </form>
     </div>
     <div id="payment">
       <form>
         <div>
-          <label for="payment_summ">Сумма</label>
-          <input type="text" id="payment_from" class="form-control"
-                 placeholder="от 1 000 до 75 000 Р">
+          <label>Сумма</label>
+          <the-mask mask="#####"
+                    id="payment_from"
+                    class="form-control"
+                    v-model="$v.sum.$model"
+                    placeholder="от 1 000 до 75 000 Р"/>
         </div>
         <div>
-          <label for="payment_comment">Комментарий</label>
-          <input type="text" id="bic" class="form-control" placeholder="до 150 символов">
+          <label>Комментарий</label>
+          <input type="text"
+                 maxlength="150"
+                 id="bic"
+                 class="form-control"
+                 v-model="$v.comment.$model"
+                 placeholder="до 150 символов">
         </div>
         <div>
-          <label for="payment_mail">Ваша эл.почта</label>
-          <input type="mail" id="payment_number" class="form-control"
+          <label>Ваша эл.почта</label>
+          <input type="mail"
+                 id="payment_number"
+                 class="form-control"
+                 v-model="$v.mail.$model"
                  placeholder="для квитанций об оплате">
         </div>
       </form>
@@ -67,7 +83,7 @@
 </template>
 
 <script>
-  import {minLength, required} from 'vuelidate/lib/validators'
+  import {minLength, required, between, email} from 'vuelidate/lib/validators'
 
   export default {
     name: "PayAnyCard",
@@ -77,6 +93,9 @@
         cardNumber: '',
         date: '',
         cvv: '',
+        sum: '',
+        comment: '',
+        mail: '',
         submitStatus: null
       }
     },
@@ -94,7 +113,18 @@
       cvv: {
         required,
         minLength: minLength(3)
-      }
+      },
+
+      sum: {
+        required,
+        between: between(1000,75000)
+      },
+
+      mail: {
+        email
+      },
+
+      comment: {}
     },
     methods: {
       submit() {

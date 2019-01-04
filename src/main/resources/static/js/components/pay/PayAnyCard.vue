@@ -13,16 +13,19 @@
           <the-mask mask="####-####-####-####"
                     class="form-control"
                     v-model.trim="$v.cardNumber.$model"
+                    @input="delayTouch($v.cardNumber)"
                     id="cardNumber"/>
         </div>
-        <div class="error" v-if="(!$v.cardNumber.required && $v.cardNumber.dirty)">Name is
-          required
-        </div>
-        <div class="error" v-if="!$v.cardNumber.minLength">Name must have at least
-          {{$v.cardNumber.$params.minLength.min}} letters.
-        </div>
+        <!--<div class="error" v-if="(!$v.cardNumber.required && $v.cardNumber.dirty)">Name is-->
+          <!--required-->
+        <!--</div>-->
+        <!--<div class="error"  v-if="!$v.cardNumber.minLength">Name must have at least-->
+          <!--{{$v.cardNumber.$params.minLength.min}} letters.-->
+        <!--</div>-->
 
-        <div id="expiration-date">
+        <div class="form-group"
+             id="expiration-date"
+             :class="{ 'form-group--error': $v.date.$error }">
           <the-mask type="text"
                     mask="F#/F#" :tokens="{
                     F : {
@@ -32,25 +35,31 @@
                     }"
                     placeholder="MM/ГГ"
                     v-model.trim="$v.date.$model"
+                    @input="delayTouch($v.date)"
                     class="form-control" id="date"/>
         </div>
-        <div id="cvv">
+        <div id="cvv"
+             class="form-group"
+             :class="{ 'form-group--error': $v.cvv.$error }">
           <the-mask mask="###"
                     placeholder="CVV"
                     v-model.trim="$v.cvv.$model"
                     class="form-control"
+                    @input="delayTouch($v.cvv)"
                     id="cvv"/>
         </div>
       </form>
     </div>
     <div id="payment">
       <form>
-        <div>
+        <div class="form-group"
+             :class="{ 'form-group--error': $v.sum.$error }">
           <label>Сумма</label>
           <the-mask mask="#####"
                     id="payment_from"
                     class="form-control"
                     v-model="$v.sum.$model"
+                    @input="delayTouch($v.sum)"
                     placeholder="от 1 000 до 75 000 Р"/>
         </div>
         <div>
@@ -62,20 +71,26 @@
                  v-model="$v.comment.$model"
                  placeholder="до 150 символов">
         </div>
-        <div>
+        <div class="form-group"
+             :class="{ 'form-group--error': $v.mail.$error }">
           <label>Ваша эл.почта</label>
           <input type="mail"
                  id="payment_number"
                  class="form-control"
                  v-model="$v.mail.$model"
+                 @input="delayTouch($v.mail)"
                  placeholder="для квитанций об оплате">
         </div>
       </form>
-      <div class="aqua-button">
+
+      <div class="aqua-button" @click="submit">
         <span class="aqua-button__bg"></span>
-        <a href="" rel="nofollow" class="aqua-button__title">
+        <button
+            type="submit"
+            :disabled="$v.$invalid === true"
+            class="aqua-button__title">
           Заплатить
-        </a>
+        </button>
       </div>
     </div>
 
@@ -84,6 +99,8 @@
 
 <script>
   import {minLength, required, between, email} from 'vuelidate/lib/validators'
+
+  const touchMap = new WeakMap();
 
   export default {
     name: "PayAnyCard",
@@ -127,18 +144,36 @@
       comment: {}
     },
     methods: {
-      submit() {
-        console.log('submit!')
-        this.$v.$touch()
-        if (this.$v.$invalid) {
-          this.submitStatus = 'ERROR'
-        } else {
-          // do your submit logic here
-          this.submitStatus = 'PENDING'
-          setTimeout(() => {
-            this.submitStatus = 'OK'
-          }, 500)
+      delayTouch($v) {
+        $v.$reset();
+        if (touchMap.has($v)) {
+          clearTimeout(touchMap.get($v))
         }
+        touchMap.set($v, setTimeout($v.$touch, 1000))
+      },
+
+      submit() {
+        console.log('submit!');
+        this.$v.$touch();
+        const message = {
+          card: {
+            cardNumber: this.cardNumber,
+            expirationDate: this.date,
+            cvv: this.cvv
+          },
+          comment: this.comment,
+          summ: this.sum,
+          email: this.mail
+        };
+
+        this.$resource('/payAnyCard').save({}, message).then(result =>
+        result.json().then(data => {
+          this.$notify({
+            group: 'foo',
+            title: 'Important message',
+            text: 'Hello user! This is a notification!'
+          });
+        }))
       }
     }
   }
@@ -299,6 +334,17 @@
   .aqua-button__title {
     padding: 15px 35px;
   }
+
+  button {
+    background: transparent;
+    border: none;
+  }
+
+  .form-group--error input{
+    border:0.5px solid lightcoral;
+  }
+
+
 
   @media (max-width: 1297px) {
     #payment {

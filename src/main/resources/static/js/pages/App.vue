@@ -93,7 +93,7 @@
         </div>
 
       </div>
-
+      <notifications group="foo" />
       <!--<span class="textarea" [class.textarea&#45;&#45;hidden]="!isMoreShow">-->
       <!--Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis officiis voluptatibus unde placeat quisquam. Explicabo recusandae laboriosam possimus consequuntur veniam, deleniti dolor veritatis praesentium. Itaque, illo! Id voluptatibus dolorem commodi itaque, amet. Assumenda, neque officia. Voluptatem labore hic voluptas incidunt ullam debitis iste minima rerum quo tenetur, vitae quaerat provident, soluta sunt doloremque aliquid molestiae dolor cupiditate ex. Vitae assumenda voluptatibus, sequi. Ipsa quam hic quis, fugiat voluptatibus ipsum quod quibusdam blanditiis, labore, at voluptates. Enim itaque voluptatum, ex illum? Laudantium cupiditate dicta rerum, alias odio minima qui. Accusamus dolore fugiat excepturi dolor ipsa dicta voluptates vero perferendis saepe quaerat, maxime, nisi. Qui sunt, vitae delectus culpa similique molestias ex quasi totam facere expedita odio inventore cumque, placeat quia non?-->
       <!--</span>-->

@@ -6,11 +6,13 @@ import VueRouter from 'vue-router'
 import PayAnyCard from 'components/pay/PayAnyCard.vue'
 import PayYouBank from 'components/pay/PayYouBank.vue'
 import VueTheMask from 'vue-the-mask'
+import Notifications from 'vue-notification'
 
 Vue.use(Vuelidate);
 Vue.use(VueResource);
 Vue.use(VueRouter);
-Vue.use(VueTheMask)
+Vue.use(VueTheMask);
+Vue.use(Notifications);
 
 var router = new VueRouter({
   routes: [

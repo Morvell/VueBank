@@ -1,7 +1,8 @@
-package letscode.sarafan.config;
+package morvell.vuebank.config;
 
-import letscode.sarafan.domain.User;
-import letscode.sarafan.repo.UserDetailsRepo;
+
+import morvell.vuebank.domain.User;
+import morvell.vuebank.repo.UserDetailsRepo;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.context.annotation.Bean;

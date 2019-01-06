@@ -1,6 +1,6 @@
-package letscode.sarafan.repo;
+package morvell.vuebank.repo;
 
-import letscode.sarafan.domain.Message;
+import morvell.vuebank.domain.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MessageRepo extends JpaRepository<Message, Long> {

@@ -2,8 +2,8 @@
   <div>
     <div id="card">
       <div id="credit_cards">
-        <i class="fa fa-cc-visa fa-fw fa-2x"></i>
-        <i class="fa fa-cc-mastercard fa-fw fa-2x"></i>
+        <i class="fab fa-cc-visa fa-fw fa-2x"></i>
+        <i class="fab fa-cc-mastercard fa-fw fa-2x"></i>
         <i class="fa fa-globe fa-fw fa-2x"></i>
       </div>
 
@@ -209,6 +209,8 @@
           this.sum = '';
           this.comment = '';
           this.mail = '';
+
+          this.$v.$reset()
 
         }
       }

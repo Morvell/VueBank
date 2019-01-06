@@ -1,4 +1,4 @@
-package letscode.sarafan.domain;
+package morvell.vuebank.domain;
 
 import java.time.LocalDateTime;
 import javax.persistence.Embedded;

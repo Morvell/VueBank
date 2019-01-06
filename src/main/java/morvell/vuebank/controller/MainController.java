@@ -1,7 +1,7 @@
-package letscode.sarafan.controller;
+package morvell.vuebank.controller;
 
-import letscode.sarafan.domain.User;
-import letscode.sarafan.repo.MessageRepo;
+import morvell.vuebank.domain.User;
+import morvell.vuebank.repo.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

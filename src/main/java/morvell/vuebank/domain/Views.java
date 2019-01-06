@@ -1,4 +1,4 @@
-package letscode.sarafan.domain;
+package morvell.vuebank.domain;
 
 public final class Views {
     public interface Id {}

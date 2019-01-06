@@ -1,4 +1,4 @@
-package letscode.sarafan;
+package morvell.vuebank;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SarafanApplicationTests {
+public class VueBankApplicationTests {
 
 	@Test
 	public void contextLoads() {

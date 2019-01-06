@@ -1,7 +1,7 @@
-package letscode.sarafan.controller;
+package morvell.vuebank.controller;
 
-import letscode.sarafan.domain.PayAnyCard;
-import letscode.sarafan.repo.PayAnyCardRepo;
+import morvell.vuebank.domain.PayAnyCard;
+import morvell.vuebank.repo.PayAnyCardRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,6 +1,6 @@
-package letscode.sarafan.repo;
+package morvell.vuebank.repo;
 
-import letscode.sarafan.domain.User;
+import morvell.vuebank.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserDetailsRepo extends JpaRepository<User, String> {

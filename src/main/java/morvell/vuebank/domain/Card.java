@@ -1,4 +1,4 @@
-package letscode.sarafan.domain;
+package morvell.vuebank.domain;
 
 import javax.persistence.Embeddable;
 import lombok.Data;

@@ -1,9 +1,9 @@
 {
-  "name": "sarafan",
+  "name": "VueBank",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:drucoder/sarafan.git",
-  "author": "Andrey <i@dru.su>",
+  "repository": "git@github.com:Morvell/VueBank.git",
+  "author": "Andrey <mrmorvell@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server"

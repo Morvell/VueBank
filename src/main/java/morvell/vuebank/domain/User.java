@@ -1,4 +1,4 @@
-package letscode.sarafan.domain;
+package morvell.vuebank.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

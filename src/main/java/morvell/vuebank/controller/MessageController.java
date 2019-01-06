@@ -1,9 +1,10 @@
-package letscode.sarafan.controller;
+package morvell.vuebank.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import letscode.sarafan.domain.Message;
-import letscode.sarafan.domain.Views;
-import letscode.sarafan.repo.MessageRepo;
+
+import morvell.vuebank.domain.Message;
+import morvell.vuebank.domain.Views;
+import morvell.vuebank.repo.MessageRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

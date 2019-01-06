@@ -184,7 +184,7 @@
             email: this.mail
           };
 
-          this.$resource('/payAnyCard').save({}, message).then(result =>
+          this.$resource('/payAnyCard').get.save({}, message).then(result =>
               result.json().then(() => {
                 this.$notify({
                   group: 'foo',

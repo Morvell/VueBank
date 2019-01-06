@@ -28,9 +28,12 @@
              id="expiration-date"
              :class="{ 'form-group--error': $v.date.$error }">
           <the-mask type="text"
-                    mask="F#/F#" :tokens="{
+                    mask="F#/G#" :tokens="{
                     F : {
                     pattern: /[0-1]/
+                    },
+                    G: {
+                    pattern: /[1-3]/
                     },
                     '#': {pattern: /\d/}
                     }"

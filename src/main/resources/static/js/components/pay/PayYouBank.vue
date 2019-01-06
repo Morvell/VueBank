@@ -77,7 +77,7 @@
           Получить файл для интернет-банка
         </button>
       </div>
-      <div id="clean_form">
+      <div id="clean_form" @click="cleanForm">
         <span>Очистить форму</span>
       </div>
 
@@ -88,7 +88,7 @@
 
 <script>
 
-  import {minLength, required, between, or, and, maxLength, sameAs} from 'vuelidate/lib/validators'
+  import {and, between, maxLength, minLength, or, required} from 'vuelidate/lib/validators'
 
   const touchMap = new WeakMap();
 
@@ -125,20 +125,29 @@
 
       paymentSum: {
         required,
-        between: between(1000,75000)
+        between: between(1000, 75000)
       }
     },
     methods: {
       nds18() {
-        this.paymentFor='НДС 18%'
+        this.paymentFor = 'НДС 18%'
       },
 
       nds10() {
-        this.paymentFor='НДС 10%'
+        this.paymentFor = 'НДС 10%'
       },
 
       nonds() {
-        this.paymentFor='без НДС'
+        this.paymentFor = 'без НДС'
+      },
+
+      cleanForm() {
+        this.$v.$reset();
+        this.paymentFrom = '';
+        this.bic = '';
+        this.paymentNumber = '';
+        this.paymentFor = '';
+        this.paymentSum = '';
       },
 
       delayTouch($v) {
@@ -355,7 +364,7 @@
     background: #fff4f8;
   }
 
-  @media(max-width: 1184px) {
+  @media (max-width: 1184px) {
     #payment_from {
       margin-left: 160px;
     }
@@ -392,7 +401,14 @@
     cursor: pointer;
   }
 
-  @media(max-width: 964px) {
+  #clean_form {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    color: blue;
+    cursor: pointer;
+  }
+
+  @media (max-width: 964px) {
     #payment_from {
       margin-left: 140px;
     }
@@ -423,7 +439,7 @@
     }
   }
 
-  @media(max-width: 630px) {
+  @media (max-width: 630px) {
     .main_pay_you_bank {
       min-width: 500px;
     }

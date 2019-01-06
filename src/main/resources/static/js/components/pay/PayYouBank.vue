@@ -51,9 +51,9 @@
               placeholder="назначение платежа">
         </div>
         <div id="nds_labels">
-          <span>НДС 18%</span>
-          <span>НДС 10%</span>
-          <span>без НДС</span>
+          <span @click="nds18">НДС 18%</span>
+          <span @click="nds10">НДС 10%</span>
+          <span @click="nonds">без НДС</span>
         </div>
         <div class="form-group"
              :class="{ 'form-group--error': $v.paymentSum.$error }">
@@ -129,6 +129,18 @@
       }
     },
     methods: {
+      nds18() {
+        this.paymentFor='НДС 18%'
+      },
+
+      nds10() {
+        this.paymentFor='НДС 10%'
+      },
+
+      nonds() {
+        this.paymentFor='без НДС'
+      },
+
       delayTouch($v) {
         $v.$reset();
 
@@ -372,6 +384,12 @@
     #payment form div input {
       width: 400px;
     }
+  }
+
+  #nds_labels span {
+    margin-right: 1%;
+    color: blue;
+    cursor: pointer;
   }
 
   @media(max-width: 964px) {

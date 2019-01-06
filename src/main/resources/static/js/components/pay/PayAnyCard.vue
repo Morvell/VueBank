@@ -12,15 +12,16 @@
              id="card-number-field">
           <the-mask mask="####-####-####-####"
                     class="form-control"
+                    placeholder="номер карты 16 символов"
                     v-model.trim="$v.cardNumber.$model"
                     @input="delayTouch($v.cardNumber)"
                     id="cardNumber"/>
         </div>
         <!--<div class="error" v-if="(!$v.cardNumber.required && $v.cardNumber.dirty)">Name is-->
-          <!--required-->
+        <!--required-->
         <!--</div>-->
         <!--<div class="error"  v-if="!$v.cardNumber.minLength">Name must have at least-->
-          <!--{{$v.cardNumber.$params.minLength.min}} letters.-->
+        <!--{{$v.cardNumber.$params.minLength.min}} letters.-->
         <!--</div>-->
 
         <div class="form-group"
@@ -87,7 +88,7 @@
         <span class="aqua-button__bg"></span>
         <button
             type="submit"
-            :disabled="$v.$invalid === true"
+
             class="aqua-button__title">
           Заплатить
         </button>
@@ -101,6 +102,7 @@
   import {minLength, required, between, email} from 'vuelidate/lib/validators'
 
   const touchMap = new WeakMap();
+  const validMap = new WeakMap();
 
   export default {
     name: "PayAnyCard",
@@ -146,34 +148,69 @@
     methods: {
       delayTouch($v) {
         $v.$reset();
+
         if (touchMap.has($v)) {
           clearTimeout(touchMap.get($v))
         }
-        touchMap.set($v, setTimeout($v.$touch, 1000))
+        touchMap.set($v, setTimeout($v.$touch, 1000));
+
+        // if (validMap.has($v)) {
+        //   clearTimeout(validMap.get($v))
+        // }
+        // if($v.$invalid === true) {
+        //   validMap.set($v, setTimeout(this.func(msg2), 1200));
+        // }
       },
 
       submit() {
         console.log('submit!');
         this.$v.$touch();
-        const message = {
-          card: {
-            cardNumber: this.cardNumber,
-            expirationDate: this.date,
-            cvv: this.cvv
-          },
-          comment: this.comment,
-          summ: this.sum,
-          email: this.mail
-        };
 
-        this.$resource('/payAnyCard').save({}, message).then(result =>
-        result.json().then(data => {
+        if (this.$v.$invalid) {
           this.$notify({
             group: 'foo',
-            title: 'Important message',
-            text: 'Hello user! This is a notification!'
+            type: 'error',
+            title: 'Ошибка валидации',
+            text: 'Проверьте правильность заполнения полей'
           });
-        }))
+
+        } else {
+
+          const message = {
+            card: {
+              cardNumber: this.cardNumber,
+              expirationDate: this.date,
+              cvv: this.cvv
+            },
+            comment: this.comment,
+            summ: this.sum,
+            email: this.mail
+          };
+
+          this.$resource('/payAnyCard').save({}, message).then(result =>
+              result.json().then(() => {
+                this.$notify({
+                  group: 'foo',
+                  title: '',
+                  text: 'Данные отправлены'
+                });
+              }), () => {
+            this.$notify({
+              group: 'foo',
+              type: 'error',
+              title: 'Ошибка',
+              text: 'При отправке данных произошла ошибка'
+            });
+          });
+
+          this.cardNumber = '';
+          this.date = '';
+          this.cvv = '';
+          this.sum = '';
+          this.comment = '';
+          this.mail = '';
+
+        }
       }
     }
   }
@@ -340,11 +377,10 @@
     border: none;
   }
 
-  .form-group--error input{
-    border:0.5px solid lightcoral;
+  .form-group--error input {
+    border-bottom: 1px solid lightcoral;
+    background: #fff4f8;
   }
-
-
 
   @media (max-width: 1297px) {
     #payment {

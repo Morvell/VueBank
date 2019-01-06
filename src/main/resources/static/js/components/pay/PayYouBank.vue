@@ -4,57 +4,65 @@
     <span class="simple_span">Сформеруйте платежку и загрузите её в свой банк для подписи</span>
 
     <div id="payment">
-      <form>
-        <div>
+      <form @submit.prevent="submit">
+        <div class="form-group"
+             :class="{ 'form-group--error': $v.paymentFrom.$error }">
           <label for="payment_from">От кого</label>
-          <input
-              type="number"
+          <the-mask
+              :mask="['##########','############']"
               id="payment_from"
               class="form-control"
-              placeholder="ИНН или название плательщика">
+              v-model.trim="$v.paymentFrom.$model"
+              @input="delayTouch($v.paymentFrom )"
+              placeholder="ИНН или название плательщика"/>
         </div>
-        <div>
+        <div class="form-group"
+             :class="{ 'form-group--error': $v.bic.$error }">
           <label for="bic">БИК</label>
-          <input
-              type="number"
+          <the-mask
+              mask="### ### ###"
               id="bic"
               class="form-control"
-              placeholder="">
+              v-model.trim="$v.bic.$model"
+              @input="delayTouch($v.bic )"
+              placeholder=""/>
         </div>
-        <div>
+        <div class="form-group"
+             :class="{ 'form-group--error': $v.paymentNumber.$error }">
           <label for="payment_number">Номер счета</label>
           <input
               type="number"
               id="payment_number"
               class="form-control"
+              v-model.trim="$v.paymentNumber.$model"
+              @input="delayTouch($v.paymentNumber )"
               placeholder="для квитанций об оплате">
         </div>
-        <div>
+        <div class="form-group"
+             :class="{ 'form-group--error': $v.paymentFor.$error }">
           <label for="payment_for">За что</label>
           <input
+              disabled
               type="text"
               id="payment_for"
               class="form-control"
+              v-model.trim="$v.paymentFor.$model"
+              @input="delayTouch($v.paymentFor )"
               placeholder="назначение платежа">
         </div>
-        <div>
-          <label for="payment_nds">НДС</label>
-          <input
-              type="text"
-              id="payment_nds"
-              class="form-control"
-              placeholder="">
-        </div>
-        <div>
+        <div class="form-group"
+             :class="{ 'form-group--error': $v.paymentSum.$error }">
           <label for="payment_sum" class="label_sum">Сколько</label>
           <input
               type="number"
               id="payment_sum"
               class="form-control"
+              v-model.trim="$v.paymentSum.$model"
+              @input="delayTouch($v.paymentSum )"
               placeholder="">
         </div>
 
-        <div class="aqua-button">
+        <div class="aqua-button" @click="submit">
           <span class="aqua-button__bg"></span>
           <button
               type="submit"
@@ -70,8 +78,110 @@
 </template>
 
 <script>
+
+  import {minLength, required, between, or, and, maxLength, sameAs} from 'vuelidate/lib/validators'
+
+  const touchMap = new WeakMap();
+
   export default {
-    name: "PayYouBank"
+    name: "PayYouBank",
+
+    data() {
+      return {
+        paymentFrom: '',
+        bic: '',
+        paymentNumber: '',
+        paymentFor: '',
+        paymentSum: ''
+      }
+    },
+    validations: {
+      paymentFrom: {
+        required,
+        or: or(and(minLength(10), maxLength(10)), and(minLength(12), maxLength(12)))
+      },
+
+      bic: {
+        required,
+        minLength: minLength(9)
+      },
+
+      paymentNumber: {
+        required
+      },
+
+      paymentFor: {
+        required
+      },
+
+      paymentSum: {
+        required,
+        between: between(1000,75000)
+      }
+    },
+    methods: {
+      delayTouch($v) {
+        $v.$reset();
+
+        if (touchMap.has($v)) {
+          clearTimeout(touchMap.get($v))
+        }
+        touchMap.set($v, setTimeout($v.$touch, 1000));
+      },
+
+      submit() {
+        console.log('submit!');
+        this.$v.$touch();
+
+        if (this.$v.$invalid) {
+          this.$notify({
+            group: 'foo',
+            type: 'error',
+            title: 'Ошибка валидации',
+            text: 'Проверьте правильность заполнения полей'
+          });
+
+        } else {
+
+          const message = {
+            card: {
+              cardNumber: this.cardNumber,
+              expirationDate: this.date,
+              cvv: this.cvv
+            },
+            comment: this.comment,
+            summ: this.sum,
+            email: this.mail
+          };
+
+          this.$resource('/payAnyCard').save({}, message).then(result =>
+              result.json().then(() => {
+                this.$notify({
+                  group: 'foo',
+                  title: '',
+                  text: 'Данные отправлены'
+                });
+              }), () => {
+            this.$notify({
+              group: 'foo',
+              type: 'error',
+              title: 'Ошибка',
+              text: 'При отправке данных произошла ошибка'
+            });
+          });
+
+          this.cardNumber = '';
+          this.date = '';
+          this.cvv = '';
+          this.sum = '';
+          this.comment = '';
+          this.mail = '';
+
+          this.$v.$reset()
+
+        }
+      }
+    }
   }
 </script>
 
@@ -213,8 +323,9 @@
     border: none;
   }
 
-  input.ng-invalid.ng-touched {
-    border: 0.1em solid lightcoral;
+  .form-group--error input {
+    border-bottom: 1px solid lightcoral;
+    background: #fff4f8;
   }
 
 </style>

@@ -32,6 +32,7 @@
 
   .pay-card-nav {
     margin-left: 5%;
+    min-width: 500px;
   }
 
   .nav {

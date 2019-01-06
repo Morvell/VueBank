@@ -1,6 +1,6 @@
 <template>
 
-  <div>
+  <div class="main_pay_you_bank">
     <span class="simple_span">Сформеруйте платежку и загрузите её в свой банк для подписи</span>
 
     <div id="payment">
@@ -67,19 +67,19 @@
               placeholder="">
         </div>
 
-        <div class="aqua-button" @click="submit">
-          <span class="aqua-button__bg"></span>
-          <button
-              type="submit"
-              class="aqua-button__title">
-            Получить файл для интернет-банка
-          </button>
-        </div>
-        <div id="clean_form">
-          <span>Очистить форму</span>
-        </div>
-
       </form>
+
+      <div class="aqua-button" @click="submit">
+        <span class="aqua-button__bg"></span>
+        <button
+            type="submit"
+            class="aqua-button__title">
+          Получить файл для интернет-банка
+        </button>
+      </div>
+      <div id="clean_form">
+        <span>Очистить форму</span>
+      </div>
 
     </div>
   </div>
@@ -199,8 +199,13 @@
     float: left;
     margin-left: 10%;
     margin-top: 2%;
+    margin-right: 5%;
     font-weight: bold;
     font-size: 1.2em;
+  }
+
+  .form-group {
+    display: inline-block;
   }
 
   #payment {
@@ -336,6 +341,107 @@
   .form-group--error input {
     border-bottom: 1px solid lightcoral;
     background: #fff4f8;
+  }
+
+  @media(max-width: 1184px) {
+    #payment_from {
+      margin-left: 160px;
+    }
+
+    #bic {
+      margin-left: 186px;
+    }
+
+    #payment_number {
+      margin-left: 118px;
+    }
+
+    #payment_for {
+      margin-left: 167px;
+    }
+
+    #nds_labels {
+      margin-top: -9%;
+      margin-left: 220px;
+    }
+
+    #payment_sum {
+      margin-left: 150px;
+    }
+
+    #payment form div input {
+      width: 400px;
+    }
+  }
+
+  @media(max-width: 964px) {
+    #payment_from {
+      margin-left: 140px;
+    }
+
+    #bic {
+      margin-left: 166px;
+    }
+
+    #payment_number {
+      margin-left: 98px;
+    }
+
+    #payment_for {
+      margin-left: 147px;
+    }
+
+    #nds_labels {
+      margin-top: -9%;
+      margin-left: 200px;
+    }
+
+    #payment_sum {
+      margin-left: 130px;
+    }
+
+    #payment form div input {
+      width: 300px;
+    }
+  }
+
+  @media(max-width: 630px) {
+    .main_pay_you_bank {
+      min-width: 500px;
+    }
+
+    #payment_from {
+      margin-left: 100px;
+      margin-right: 5px;
+    }
+
+    #bic {
+      margin-left: 126px;
+      margin-right: 5px;
+    }
+
+    #payment_number {
+      margin-left: 58px;
+      margin-right: 5px;
+    }
+
+    #payment_for {
+      margin-left: 107px;
+      margin-right: 5px;
+    }
+
+    #nds_labels {
+      margin-top: -9%;
+      margin-left: 160px;
+    }
+
+    #payment_sum {
+      margin-left: 90px;
+    }
+
+    #payment form div input {
+      width: 220px;
+    }
   }
 
 </style>

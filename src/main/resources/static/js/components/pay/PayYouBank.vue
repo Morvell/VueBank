@@ -50,6 +50,11 @@
               @input="delayTouch($v.paymentFor )"
               placeholder="назначение платежа">
         </div>
+        <div id="nds_labels">
+          <span>НДС 18%</span>
+          <span>НДС 10%</span>
+          <span>без НДС</span>
+        </div>
         <div class="form-group"
              :class="{ 'form-group--error': $v.paymentSum.$error }">
           <label for="payment_sum" class="label_sum">Сколько</label>
@@ -70,6 +75,10 @@
             Получить файл для интернет-банка
           </button>
         </div>
+        <div id="clean_form">
+          <span>Очистить форму</span>
+        </div>
+
       </form>
 
     </div>
@@ -237,8 +246,9 @@
     margin-left: 207px;
   }
 
-  #payment_nds {
-    margin-left: 223px;
+  #nds_labels {
+    margin-top: -9%;
+    margin-left: 260px;
   }
 
   #payment_sum {

@@ -34,5 +34,6 @@ dependencies {
 	compile('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.0.RELEASE')
     compile('org.postgresql:postgresql')
     compile('org.projectlombok:lombok')
+	compile(group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

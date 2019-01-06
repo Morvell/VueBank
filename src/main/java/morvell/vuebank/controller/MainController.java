@@ -1,7 +1,6 @@
 package morvell.vuebank.controller;
 
 import morvell.vuebank.domain.User;
-import morvell.vuebank.repo.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,22 +14,15 @@ import java.util.HashMap;
 @Controller
 @RequestMapping("/")
 public class MainController {
-    private final MessageRepo messageRepo;
 
     @Value("${spring.profiles.active}")
     private String profile;
-
-    @Autowired
-    public MainController(MessageRepo messageRepo) {
-        this.messageRepo = messageRepo;
-    }
 
     @GetMapping
     public String main(Model model, @AuthenticationPrincipal User user) {
         HashMap<Object, Object> data = new HashMap<>();
 
         data.put("profile", user);
-        data.put("messages", messageRepo.findAll());
 
         model.addAttribute("frontendData", data);
         model.addAttribute("isDevMode", "dev".equals(profile));

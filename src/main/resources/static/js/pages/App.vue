@@ -106,22 +106,16 @@
 
       <div class="footer">
       </div>
-
-
-      <div>{{profile.name}}&nbsp;<a href="/logout">Выйти</a></div>
-      <messages-list :messages="messages"/>
     </div>
   </div>
 </template>
 
 <script>
-  import MessagesList from 'components/messages/MessageList.vue'
   import Pay from "components/pay/Pay.vue";
 
   export default {
     components: {
-      Pay,
-      MessagesList
+      Pay
     },
     data() {
       return {

@@ -174,18 +174,18 @@
         } else {
 
           const message = {
-            card: {
-              cardNumber: this.cardNumber,
-              expirationDate: this.date,
-              cvv: this.cvv
-            },
-            comment: this.comment,
-            summ: this.sum,
-            email: this.mail
+            paymentFrom: this.paymentFrom,
+            bic: this.bic,
+            paymentNumber: this.paymentNumber,
+            paymentFor: this.paymentFor,
+            paymentSum: this.paymentSum
           };
 
-          this.$resource('/payAnyCard').get.save({}, message).then(result =>
-              result.json().then(() => {
+          let id =0;
+
+          this.$resource('/payYouBank').save({}, message).then(result =>
+              result.json().then(t => {
+                id = t;
                 this.$notify({
                   group: 'foo',
                   title: '',
@@ -200,14 +200,21 @@
             });
           });
 
-          this.cardNumber = '';
-          this.date = '';
-          this.cvv = '';
-          this.sum = '';
-          this.comment = '';
-          this.mail = '';
+          this.$v.$reset();
+          this.paymentFrom = '';
+          this.bic = '';
+          this.paymentNumber = '';
+          this.paymentFor = '';
+          this.paymentSum = '';
 
-          this.$v.$reset()
+          setTimeout(()=>{
+            var link = document.createElement('a');
+            link.href = '/payYouBank/' + id;
+            link.download = 'file.pdf';
+            link.target='_blank';
+            link.dispatchEvent(new MouseEvent('click'));
+          },3000);
+
 
         }
       }

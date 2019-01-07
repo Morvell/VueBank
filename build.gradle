@@ -36,5 +36,6 @@ dependencies {
     compile('org.projectlombok:lombok')
 	compile(group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-activemq', version: '1.4.0.RELEASE'
+	compile group: 'com.lowagie', name: 'itext', version: '4.2.2'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

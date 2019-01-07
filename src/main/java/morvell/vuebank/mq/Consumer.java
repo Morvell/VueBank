@@ -1,6 +1,8 @@
 package morvell.vuebank.mq;
 
 import lombok.extern.slf4j.Slf4j;
+import morvell.vuebank.report.GeneratePdfReport;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
@@ -8,9 +10,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class Consumer {
 
+  @Autowired
+  GeneratePdfReport generatePdfReport;
+
   @JmsListener(destination = "sample.queue")
-  public void receiveQueue(String text) {
-    log.info("recieve message {}", text);
+  public void receiveQueue(Long id) {
+    log.info("recieve message {}", id);
+    generatePdfReport.generateReport(id);
   }
 
 }

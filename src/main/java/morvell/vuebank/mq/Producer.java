@@ -16,9 +16,9 @@ public class Producer {
   @Autowired
   private Queue queue;
 
-  public void send(String msg) {
-    this.jmsMessagingTemplate.convertAndSend(this.queue, msg);
-    log.info("send jms message {}", msg);
+  public void send(Long id) {
+    this.jmsMessagingTemplate.convertAndSend(this.queue, id);
+    log.info("send jms message {}", id);
   }
 
 }

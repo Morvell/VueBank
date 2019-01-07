@@ -191,6 +191,14 @@
                   title: '',
                   text: 'Данные отправлены'
                 });
+
+                setTimeout(()=>{
+                  var link = document.createElement('a');
+                  link.href = '/payYouBank/' + id;
+                  link.download = 'file.pdf';
+                  link.target='_blank';
+                  link.dispatchEvent(new MouseEvent('click'));
+                },3000);
               }), () => {
             this.$notify({
               group: 'foo',
@@ -207,13 +215,7 @@
           this.paymentFor = '';
           this.paymentSum = '';
 
-          setTimeout(()=>{
-            var link = document.createElement('a');
-            link.href = '/payYouBank/' + id;
-            link.download = 'file.pdf';
-            link.target='_blank';
-            link.dispatchEvent(new MouseEvent('click'));
-          },3000);
+
 
 
         }

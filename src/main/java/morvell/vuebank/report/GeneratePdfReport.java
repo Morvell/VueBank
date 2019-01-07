@@ -5,6 +5,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -25,6 +26,21 @@ public class GeneratePdfReport {
   @Autowired
   PayYouBankRepo repo;
 
+  private Font headFont;
+
+  private GeneratePdfReport() {
+    BaseFont bf = null;
+    try {
+      bf = BaseFont.createFont("C:/Windows/Fonts/Arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+    } catch (DocumentException e) {
+      log.error("dfdf");
+    } catch (IOException e) {
+      log.error("Dfdf");
+    }
+
+    headFont = new Font(bf);
+  }
+
   public void generateReport(Long id) {
 
     log.info("Start to render {}", id);
@@ -36,57 +52,20 @@ public class GeneratePdfReport {
 
     try {
 
-      PdfPTable table = new PdfPTable(3);
-      table.setWidthPercentage(60);
-      table.setWidths(new int[]{1, 3, 3});
-
-      BaseFont bf = BaseFont.createFont("C:/Windows/Fonts/Arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-
-      Font headFont = new Font(bf);
-
-      PdfPCell hcell;
-      hcell = new PdfPCell(new Phrase("Id", headFont));
-      hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-      table.addCell(hcell);
-
-      hcell = new PdfPCell(new Phrase("Name", headFont));
-      hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-      table.addCell(hcell);
-
-      hcell = new PdfPCell(new Phrase("Population", headFont));
-      hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-      table.addCell(hcell);
-
-      PdfPCell cell;
-
-      cell = new PdfPCell(new Phrase(pay.getId().toString()));
-      cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-      cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-      table.addCell(cell);
-
-      cell = new PdfPCell(new Phrase(pay.getPaymentFrom()));
-      cell.setPaddingLeft(5);
-      cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-      cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-      table.addCell(cell);
-
-      cell = new PdfPCell(new Phrase(String.valueOf(pay.getPaymentFor()), headFont));
-      cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-      cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-      cell.setPaddingRight(5);
-      table.addCell(cell);
-
       PdfWriter.getInstance(document, out);
       document.open();
-      document.add(table);
 
+      document.add(new Paragraph("ID:           " + pay.getId(), headFont));
+      document.add(new Paragraph("От кого:      " + pay.getPaymentFrom(), headFont));
+      document.add(new Paragraph("Бик:          " + pay.getBic(), headFont));
+      document.add(new Paragraph("Номер счета:  " + pay.getPaymentNumber(), headFont));
+      document.add(new Paragraph("За что:       " + pay.getPaymentFor(), headFont));
+      document.add(new Paragraph("Сколько:      " + pay.getPaymentSum(), headFont));
       document.close();
 
     } catch (DocumentException ex) {
 
       log.error(ex.toString());
-    } catch (IOException e) {
-      log.error("Всё плохо со шрифтами");
     }
 
     pay.setReport(out.toByteArray());

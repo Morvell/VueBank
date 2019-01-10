@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import morvell.vuebank.domain.PayYouBank;
 import morvell.vuebank.domain.User;
 import morvell.vuebank.mq.Producer;
-import morvell.vuebank.repo.PayAnyCardRepo;
 import morvell.vuebank.repo.PayYouBankRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -45,15 +44,26 @@ public class PayYouBankController {
   }
 
   @GetMapping("{id}")
-  public ResponseEntity<InputStreamResource> getOne(@PathVariable("id") Long reportId, @AuthenticationPrincipal User user) {
+  public ResponseEntity<InputStreamResource> getOne(@PathVariable("id") Long reportId,
+      @AuthenticationPrincipal User user) {
 
-    HttpHeaders headers = new HttpHeaders();
-    headers.add("Content-Disposition", "inline; filename=citiesreport.pdf");
+    if (repo.findById(reportId).get().getOwner().equals(user.getId())) {
 
-    return ResponseEntity
-        .ok()
-        .headers(headers)
-        .contentType(MediaType.APPLICATION_PDF)
-        .body(new InputStreamResource(new ByteArrayInputStream(repo.findById(reportId).get().getReport())));
+      HttpHeaders headers = new HttpHeaders();
+      headers.add("Content-Disposition", "inline; filename=citiesreport.pdf");
+
+      return ResponseEntity
+          .ok()
+          .headers(headers)
+          .contentType(MediaType.APPLICATION_PDF)
+          .body(new InputStreamResource(
+              new ByteArrayInputStream(repo.findById(reportId).get().getReport())));
+    } else {
+      return ResponseEntity
+          .badRequest()
+          .body(new InputStreamResource(null));
+    }
   }
+
+
 }

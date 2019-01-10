@@ -58,13 +58,13 @@
         <div class="form-group"
              :class="{ 'form-group--error': $v.paymentSum.$error }">
           <label for="payment_sum" class="label_sum">Сколько</label>
-          <input
-              type="number"
+          <the-mask
+              mask="#####"
               id="payment_sum"
               class="form-control"
               v-model.trim="$v.paymentSum.$model"
               @input="delayTouch($v.paymentSum )"
-              placeholder="">
+              placeholder=""/>
         </div>
 
       </form>

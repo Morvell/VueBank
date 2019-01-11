@@ -39,7 +39,18 @@
         </div>
       </div>
 
-      <pay></pay>
+      <div class="pay-card-nav">
+        <div class="nav">
+          <router-link to="/">
+            <i class="fa fa-credit-card fa-fw fa-1x"></i>
+            <span>Заплатить</span></router-link></div>
+        <div class="nav">
+          <router-link to="request">
+            <i class="fa fa-desktop fa-fw fa-1x"></i>
+            <span>Запросить</span></router-link></div>
+      </div>
+
+      <router-view></router-view>
 
       <div class="customer_services">
         <div id="company_name">

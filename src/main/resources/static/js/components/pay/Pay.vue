@@ -86,7 +86,7 @@
 
   @media (max-width: 478px) {
     .nav {
-      margin-top: 6%;
+      margin-top: 2%;
     }
   }
 

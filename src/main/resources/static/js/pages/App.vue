@@ -307,6 +307,47 @@
     min-width: 10%;
   }
 
+
+  .nav a{
+    text-decoration: none;
+  }
+
+  .pay-card-nav {
+    margin-bottom: 40px;
+    margin-left: 5%;
+    min-width: 500px;
+  }
+
+  .nav {
+    display: inline-block;
+    margin-top: 3%;
+    margin-right: 0.5%;
+  }
+
+  a {
+    background-color: transparent;
+    color: black;
+    padding: 0.8em;
+    text-decoration: none;
+  }
+
+  .router-link-exact-active {
+    background-color: #f7f7f7;
+    cursor: pointer;
+  }
+
+  a:hover {
+    background-color: #f7f7f7;
+  }
+
+  a:active {
+    background-color: #E8E8EE;
+  }
+
+  a:visited {
+    background-color: transparent;
+  }
+
   @media (max-width: 845px) {
     .service {
       margin: auto 1.9%;

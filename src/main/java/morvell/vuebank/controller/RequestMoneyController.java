@@ -1,5 +1,6 @@
 package morvell.vuebank.controller;
 
+import javax.validation.Valid;
 import morvell.vuebank.domain.RequestMoney;
 import morvell.vuebank.repo.RequestMoneyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class RequestMoneyController {
   }
 
   @PostMapping
-  public RequestMoney create(@RequestBody RequestMoney requestMoney) {
+  public RequestMoney create(@Valid @RequestBody RequestMoney requestMoney) {
     return requestMoneyRepo.save(requestMoney);
   }
 }

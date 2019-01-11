@@ -32,8 +32,6 @@
             <label for="payment_number">Номер счета</label>
             <the-mask
                 mask="####################"
-                type="number"
-                maxlength="20"
                 id="payment_number"
                 class="form-control"
                 v-model.trim="$v.paymentNumber.$model"
@@ -210,16 +208,18 @@
         } else {
 
           const message = {
-            paymentFrom: this.paymentFrom,
+            requestConsumer: this.requestConsumer,
             bic: this.bic,
             paymentNumber: this.paymentNumber,
             paymentFor: this.paymentFor,
-            paymentSum: this.paymentSum
+            paymentSum: this.paymentSum,
+            mail: this.mail,
+            telephoneNumber: this.telephoneNumber
           };
 
           let id = 0;
 
-          this.$resource('/payYouBank').save({}, message).then(result =>
+          this.$resource('/requestMoney').save({}, message).then(result =>
               result.json().then(t => {
                 id = t;
                 this.$notify({
@@ -227,14 +227,6 @@
                   title: '',
                   text: 'Данные отправлены'
                 });
-
-                setTimeout(() => {
-                  var link = document.createElement('a');
-                  link.href = '/payYouBank/' + id;
-                  link.download = 'file.pdf';
-                  link.target = '_blank';
-                  link.dispatchEvent(new MouseEvent('click'));
-                }, 3000);
               }), () => {
             this.$notify({
               group: 'foo',

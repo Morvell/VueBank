@@ -1,6 +1,7 @@
 package morvell.vuebank.controller;
 
 import java.io.ByteArrayInputStream;
+import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import morvell.vuebank.domain.PayYouBank;
 import morvell.vuebank.domain.User;
@@ -31,7 +32,7 @@ public class PayYouBankController {
   PayYouBankRepo repo;
 
   @PostMapping
-  public long create(@RequestBody PayYouBank payYouBank, @AuthenticationPrincipal User user) {
+  public long create(@Valid @RequestBody PayYouBank payYouBank, @AuthenticationPrincipal User user) {
     log.info("Receive payYouBank request with {}", payYouBank);
 
     payYouBank.setOwner(user.getId());

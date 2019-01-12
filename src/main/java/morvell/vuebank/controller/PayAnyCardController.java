@@ -1,5 +1,6 @@
 package morvell.vuebank.controller;
 
+import javax.validation.Valid;
 import morvell.vuebank.domain.PayAnyCard;
 import morvell.vuebank.repo.PayAnyCardRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class PayAnyCardController {
   }
 
   @PostMapping
-  public PayAnyCard create(@RequestBody PayAnyCard payAnyCard) {
+  public PayAnyCard create(@Valid @RequestBody PayAnyCard payAnyCard) {
     return payAnyCardRepo.save(payAnyCard);
   }
 }

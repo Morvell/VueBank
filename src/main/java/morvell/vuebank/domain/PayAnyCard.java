@@ -9,8 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table
@@ -24,10 +28,14 @@ public class PayAnyCard {
   private Card card;
 
   @NotNull
+  @Min(1000)
+  @Max(75000)
   private Integer summ;
 
+  @Length(max = 150)
   private String comment;
 
+  @Email
   private String email;
 
   private LocalDateTime lastModify;

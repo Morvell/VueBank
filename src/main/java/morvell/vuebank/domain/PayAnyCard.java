@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -24,6 +25,7 @@ public class PayAnyCard {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  @Valid
   @Embedded
   private Card card;
 

@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.Length;
 @Data
 public class Card {
 
-  @CreditCardNumber
+  //@CreditCardNumber
   @Length(max = 16, min = 16)
   private String cardNumber;
 

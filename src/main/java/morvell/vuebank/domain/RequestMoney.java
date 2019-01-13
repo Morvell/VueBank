@@ -14,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import lombok.Data;
+import morvell.vuebank.validators.StringEquals;
 
 @Entity
 @Data
@@ -33,6 +34,7 @@ public class RequestMoney {
   private String paymentNumber;
 
   @NotBlank
+  @StringEquals(strings = {"НДС 18%", "НДС 10%", "без НДС"})
   private String paymentFor;
 
   @NotNull

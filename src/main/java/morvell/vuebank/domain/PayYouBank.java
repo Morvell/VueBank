@@ -13,12 +13,14 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import morvell.vuebank.validators.StringEquals;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table
 @Data
 public class PayYouBank {
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
@@ -35,6 +37,7 @@ public class PayYouBank {
   private String paymentNumber;
 
   @NotBlank
+  @StringEquals(strings = {"НДС 18%", "НДС 10%", "без НДС"})
   private String paymentFor;
 
   @NotNull

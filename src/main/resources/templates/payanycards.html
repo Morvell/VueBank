@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Заплатить с любой карты</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <style>
+    .active {
+      background: aqua;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <table class="table">
+    <h2>Заплатить с любой карты</h2>
+    <tr>
+      <th>ID</th>
+      <th>Номер карты</th>
+      <th>Сумма</th>
+      <th>View</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+
+    <tr class="active" th:each="item : ${payanycards}">
+
+      <td th:text="${item.id}">ID платежа</td>
+      <td th:text="${item.card.cardNumber}">Номер карты</td>
+
+      <td th:text="${item.summ}">Сумма</td>
+
+      <td><a class="btn btn-default" href="#" th:href="${'/admin/payanycard/' + item.id}">View</a> </td>
+      <td><a class="btn btn-default" href="#" th:href="${'/admin/payanycard/edit/' + item.id}">Edit</a> </td>
+      <td><a class="btn btn-default" href="#" th:href="${'/admin/payanycard/delete/' + item.id}">Delete</a> </td>
+    </tr>
+  </table>
+  <a th:href="${'/admin/payanycard/new'}" class="btn btn-default">New</a>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>

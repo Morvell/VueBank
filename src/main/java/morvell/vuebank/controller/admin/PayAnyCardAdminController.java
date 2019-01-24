@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin")
 public class PayAnyCardAdminController {
+
   @Autowired
   private PayAnyCardRepo payAnyCardRepo;
 
@@ -53,7 +54,7 @@ public class PayAnyCardAdminController {
   }
 
   @GetMapping("/payanycard/delete/{id}")
-  public String deletePayAnyCard(@PathVariable  Long id) {
+  public String deletePayAnyCard(@PathVariable Long id) {
     payAnyCardRepo.deleteById(id);
     return "redirect:/admin/payanycards";
   }

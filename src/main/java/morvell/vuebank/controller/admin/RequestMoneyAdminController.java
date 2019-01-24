@@ -60,4 +60,20 @@ public class RequestMoneyAdminController {
     return "redirect:/admin/requestmoneys";
   }
 
+  @GetMapping("/requestmoney/notsafe/{id}")
+  public String notSafe(@PathVariable Long id) {
+    RequestMoney requestMoney = repo.findById(id).get();
+    requestMoney.setNotSafe(true);
+    repo.save(requestMoney);
+    return "redirect:/admin/requestmoneys";
+  }
+
+  @GetMapping("/requestmoney/safe/{id}")
+  public String safe(@PathVariable Long id) {
+    RequestMoney requestMoney = repo.findById(id).get();
+    requestMoney.setNotSafe(false);
+    repo.save(requestMoney);
+    return "redirect:/admin/requestmoneys";
+  }
+
 }

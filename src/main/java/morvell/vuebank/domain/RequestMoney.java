@@ -50,6 +50,8 @@ public class RequestMoney {
   @Pattern(regexp = "[0-9]{10}")
   private String telephoneNumber;
 
+  private Boolean notSafe = false;
+
   private LocalDateTime lastModify;
 
   private LocalDateTime created;

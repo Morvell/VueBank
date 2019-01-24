@@ -40,6 +40,8 @@ public class PayAnyCard {
   @Email
   private String email;
 
+  private Boolean notSafe = false;
+
   private LocalDateTime lastModify;
 
   private LocalDateTime created;

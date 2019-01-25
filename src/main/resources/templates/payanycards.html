@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <title>Заплатить с любой карты</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
   <style>
     .notSafe {
       background: darkgrey;
@@ -26,16 +29,33 @@
   </ol>
   <table class="table">
     <h2>Заплатить с любой карты</h2>
-    <select id="one" class="form-control">
-      <option value="asc">asc</option>
-      <option value="desc">desc</option>
-    </select>
-    <select id="two" class="form-control">
-      <option value="summ">Сумма</option>
-      <option value="id">id</option>
-      <option value="created">Дата создания</option>
-    </select>
-    <a id = 'sort' class="btn btn-default" href="#">Sort</a>
+    <div class="container">
+      <div class="col-sm-4">
+        <select id="one" class="form-control">
+          <option value="asc">asc</option>
+          <option value="desc">desc</option>
+        </select>
+        <select id="two" class="form-control">
+          <option value="summ">Сумма</option>
+          <option value="id">id</option>
+          <option value="created">Дата создания</option>
+        </select>
+        <a id='sort' class="btn btn-default" href="#">Sort</a>
+      </div>
+      <div class="col-sm-4">
+        <select id="three" class="form-control">
+          <option value="id">id</option>
+          <option value="cardNumber">Номер карты</option>
+          <option value="expirationDate">Дата</option>
+          <option value="cvv">CVV</option>
+          <option value="summ">Сумма</option>
+          <option value="comment">Комментарий</option>
+          <option value="email">Email</option>
+        </select>
+        <input type="text" class="form-control" id="fhore">
+        <a id='filter' class="btn btn-default" href="#">Filter</a>
+      </div>
+    </div>
     <tr>
       <th>ID</th>
       <th>Номер карты</th>
@@ -50,24 +70,39 @@
     <tr class="" th:classappend="${item.notSafe} ? notSafe : safe" th:each="item : ${payanycards}">
 
       <td th:text="${item.id}">ID платежа</td>
-      <td th:text="${item.card.cardNumber}">Номер карты</td>
+      <td th:text="${item.cardNumber}">Номер карты</td>
 
       <td th:text="${item.summ}">Сумма</td>
 
-      <td><a class="btn btn-default" href="#" th:href="${'/admin/payanycard/' + item.id}">View</a></td>
-      <td><a class="btn btn-default" href="#" th:href="${'/admin/payanycard/edit/' + item.id}">Edit</a></td>
-      <td><a class="btn btn-default" href="#" th:href="${'/admin/payanycard/delete/' + item.id}">Delete</a></td>
-      <td><a class="btn btn-default" href="#" th:href="${'/admin/payanycard/notsafe/' + item.id}">Not safe</a></td>
-      <td><a class="btn btn-default" href="#" th:href="${'/admin/payanycard/safe/' + item.id}">Safe</a></td>
+      <td><a class="btn btn-default" href="#" th:href="${'/admin/payanycard/' + item.id}">View</a>
+      </td>
+      <td><a class="btn btn-default" href="#"
+             th:href="${'/admin/payanycard/edit/' + item.id}">Edit</a></td>
+      <td><a class="btn btn-default" href="#" th:href="${'/admin/payanycard/delete/' + item.id}">Delete</a>
+      </td>
+      <td><a class="btn btn-default" href="#" th:href="${'/admin/payanycard/notsafe/' + item.id}">Not
+        safe</a></td>
+      <td><a class="btn btn-default" href="#"
+             th:href="${'/admin/payanycards/filter?filter=3000&field=summ'}">Safe</a></td>
     </tr>
   </table>
   <a th:href="${'/admin/payanycard/new'}" class="btn btn-default">New</a>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 <script>
-  $('#sort').on('click',function() {
-    window.location.href='/admin/payanycards/sort?sort='+$('#one').val()+'&field='+$('#two').val();
+  $('#sort').on('click', function () {
+    window.location.href = '/admin/payanycards/sort?sort=' + $('#one').val() + '&field=' + $(
+        '#two').val();
+  });
+
+  $('#filter').on('click', function () {
+    window.location.href = '/admin/payanycards/filter?filter=' + $('#fhore').val() + '&field=' + $(
+        '#three').val();
   });
 </script>
 </body>

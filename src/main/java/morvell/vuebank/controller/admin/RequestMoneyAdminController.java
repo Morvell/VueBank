@@ -1,6 +1,5 @@
 package morvell.vuebank.controller.admin;
 
-import morvell.vuebank.domain.PayAnyCard;
 import morvell.vuebank.domain.RequestMoney;
 import morvell.vuebank.repo.RequestMoneyRepo;
 import morvell.vuebank.service.RequestMoneyService;
@@ -82,9 +81,10 @@ public class RequestMoneyAdminController {
   }
 
   @GetMapping("/requestmoneys/sort")
-  public String getRequestMoneysFilter(@RequestParam("sort") String sort,
+  public String getRequestMoneysFilter(@RequestParam("sort") Object sort,
       @RequestParam("field") String field, Model model) {
-    model.addAttribute("requestmoneys", service.findAllWithSort(field,sort));
+
+    model.addAttribute("requestmoneys", service.findAllWithSort(field, String.valueOf(sort)));
     return "requestmoneys";
   }
 

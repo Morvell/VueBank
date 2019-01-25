@@ -81,9 +81,16 @@ public class PayAnyCardAdminController {
   }
 
   @GetMapping("/payanycards/sort")
-  public String getPayAnyCardsFilter(@RequestParam("sort") String sort,
+  public String getPayAnyCardsSort(@RequestParam("sort") String sort,
       @RequestParam("field") String field, Model model) {
-    model.addAttribute("payanycards", service.findAllWithSort(field,sort));
+    model.addAttribute("payanycards", service.findAllWithSort(field, sort));
+    return "payanycards";
+  }
+
+  @GetMapping("/payanycards/filter")
+  public String getPayAnyCardsFilter(@RequestParam("filter") String filter,
+      @RequestParam("field") String field, Model model) {
+    model.addAttribute("payanycards", service.finaAllWithFilter(field, filter));
     return "payanycards";
   }
 }

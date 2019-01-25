@@ -9,6 +9,7 @@ import javax.persistence.criteria.Root;
 import morvell.vuebank.domain.PayAnyCard;
 import morvell.vuebank.repo.PayAnyCardRepo;
 import morvell.vuebank.service.PayAnyCardService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,19 @@ public class PayAnyCardServiceImpl implements PayAnyCardService {
       query.orderBy(cb.desc(root.get(field)));
     }
 
+    return entityManager.createQuery(query).getResultList();
+  }
+
+  @Override
+  public List<PayAnyCard> finaAllWithFilter(String field, String like) {
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<PayAnyCard> query = cb.createQuery(PayAnyCard.class);
+    Root<PayAnyCard> root = query.from(PayAnyCard.class);
+    if (field.equals("id") || field.equals("summ")) {
+      query.where(cb.equal(root.get(field),like));
+    } else {
+      query.where(cb.like(root.get(field), like));
+    }
     return entityManager.createQuery(query).getResultList();
   }
 }

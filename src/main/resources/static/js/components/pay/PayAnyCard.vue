@@ -180,11 +180,11 @@
         } else {
 
           const message = {
-            card: {
-              cardNumber: this.cardNumber,
-              expirationDate: this.date,
-              cvv: this.cvv
-            },
+
+            cardNumber: this.cardNumber,
+            expirationDate: this.date,
+            cvv: this.cvv,
+
             comment: this.comment,
             summ: this.sum,
             email: this.mail

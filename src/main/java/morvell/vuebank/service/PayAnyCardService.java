@@ -5,4 +5,6 @@ import morvell.vuebank.domain.PayAnyCard;
 
 public interface PayAnyCardService {
   List<PayAnyCard> findAllWithSort(String field, String sort);
+
+  List<PayAnyCard> finaAllWithFilter(String field, String like);
 }

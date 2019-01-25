@@ -13,8 +13,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import morvell.vuebank.validators.CreditCardDate;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
@@ -25,9 +27,18 @@ public class PayAnyCard {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Valid
-  @Embedded
-  private Card card;
+  //@CreditCardNumber
+  @Length(max = 16, min = 16)
+  private String cardNumber;
+
+  @NotBlank
+  @Length(min = 4, max = 4)
+  @CreditCardDate
+  private String expirationDate;
+
+  @NotBlank
+  @Length(max = 3, min = 3)
+  private String cvv;
 
   @NotNull
   @Min(1000)

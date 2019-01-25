@@ -2,6 +2,7 @@ package morvell.vuebank.controller.admin;
 
 import morvell.vuebank.domain.PayAnyCard;
 import morvell.vuebank.repo.PayAnyCardRepo;
+import morvell.vuebank.service.PayAnyCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,9 @@ public class PayAnyCardAdminController {
 
   @Autowired
   private PayAnyCardRepo payAnyCardRepo;
+
+  @Autowired
+  private PayAnyCardService service;
 
   @GetMapping("/payanycard/new")
   public String newPayAnyCard(Model model) {
@@ -39,6 +43,8 @@ public class PayAnyCardAdminController {
   @GetMapping("/payanycards")
   public String getPayAnyCards(Model model) {
     model.addAttribute("payanycards", payAnyCardRepo.findAll());
+    model.addAttribute("sort", "asc");
+    model.addAttribute("field", "summ");
     return "payanycards";
   }
 
@@ -76,10 +82,12 @@ public class PayAnyCardAdminController {
     return "redirect:/admin/payanycards";
   }
 
-  @GetMapping("/payanycards")
+  @GetMapping("/payanycards/sort")
   public String getPayAnyCardsFilter(@RequestParam("sort") String sort,
       @RequestParam("field") String field, Model model) {
-    model.addAttribute("payanycards", payAnyCardRepo.findAll());
+    model.addAttribute("payanycards", service.findAllWithSort(field,sort));
+    model.addAttribute("sort", "asc");
+    model.addAttribute("field", "summ");
     return "payanycards";
   }
 }

@@ -43,8 +43,6 @@ public class PayAnyCardAdminController {
   @GetMapping("/payanycards")
   public String getPayAnyCards(Model model) {
     model.addAttribute("payanycards", payAnyCardRepo.findAll());
-    model.addAttribute("sort", "asc");
-    model.addAttribute("field", "summ");
     return "payanycards";
   }
 
@@ -86,8 +84,6 @@ public class PayAnyCardAdminController {
   public String getPayAnyCardsFilter(@RequestParam("sort") String sort,
       @RequestParam("field") String field, Model model) {
     model.addAttribute("payanycards", service.findAllWithSort(field,sort));
-    model.addAttribute("sort", "asc");
-    model.addAttribute("field", "summ");
     return "payanycards";
   }
 }

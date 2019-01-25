@@ -3,6 +3,7 @@ package morvell.vuebank.controller.admin;
 import morvell.vuebank.domain.PayAnyCard;
 import morvell.vuebank.domain.RequestMoney;
 import morvell.vuebank.repo.RequestMoneyRepo;
+import morvell.vuebank.service.RequestMoneyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/admin")
@@ -17,6 +19,9 @@ public class RequestMoneyAdminController {
 
   @Autowired
   private RequestMoneyRepo repo;
+
+  @Autowired
+  private RequestMoneyService service;
 
   @GetMapping("/requestmoney/new")
   public String newRequestMoney(Model model) {
@@ -74,6 +79,13 @@ public class RequestMoneyAdminController {
     requestMoney.setNotSafe(false);
     repo.save(requestMoney);
     return "redirect:/admin/requestmoneys";
+  }
+
+  @GetMapping("/requestmoneys/sort")
+  public String getRequestMoneysFilter(@RequestParam("sort") String sort,
+      @RequestParam("field") String field, Model model) {
+    model.addAttribute("requestmoneys", service.findAllWithSort(field,sort));
+    return "requestmoneys";
   }
 
 }

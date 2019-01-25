@@ -18,16 +18,11 @@ Vue.use(Notifications);
 
 var router = new VueRouter({
   routes: [
-    {path: '/', component: Pay,
+    {path: '/pay', component: Pay,
       children: [
-        {
-          path: '',
-          component: PayAnyCard
-        },
-        {
-          path: 'pay-you-bank',
-          component: PayYouBank
-        }]},
+        {path: '/pay/pay-you-bank', component: PayYouBank},
+        {path: '/pay/pay-any-card', component: PayAnyCard}
+        ]},
     // {path: '/', component: PayAnyCard},
     // {path: '/pay-you-bank', component: PayYouBank},
     {path: '/request', component: RequestMoney}

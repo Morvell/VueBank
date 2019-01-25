@@ -41,11 +41,11 @@
 
       <div class="pay-card-nav">
         <div class="nav">
-          <router-link to="/">
+          <router-link to="/pay">
             <i class="fa fa-credit-card fa-fw fa-1x"></i>
             <span>Заплатить</span></router-link></div>
         <div class="nav">
-          <router-link to="request">
+          <router-link to="/request">
             <i class="fa fa-desktop fa-fw fa-1x"></i>
             <span>Запросить</span></router-link></div>
       </div>
@@ -331,7 +331,7 @@
     text-decoration: none;
   }
 
-  .router-link-exact-active {
+  .router-link-active {
     background-color: #f7f7f7;
     cursor: pointer;
   }

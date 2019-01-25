@@ -336,17 +336,18 @@
     cursor: pointer;
   }
 
-  a:hover {
+  .nav a:hover {
     background-color: #f7f7f7;
   }
 
-  a:active {
+  .nav a:active {
     background-color: #E8E8EE;
   }
 
-  a:visited {
+  .nav a:visited {
     background-color: transparent;
   }
+
 
   @media (max-width: 845px) {
     .service {

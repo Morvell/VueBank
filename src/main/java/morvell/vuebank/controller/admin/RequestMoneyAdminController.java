@@ -81,10 +81,18 @@ public class RequestMoneyAdminController {
   }
 
   @GetMapping("/requestmoneys/sort")
-  public String getRequestMoneysFilter(@RequestParam("sort") Object sort,
+  public String getRequestMoneysSort(@RequestParam("sort") Object sort,
       @RequestParam("field") String field, Model model) {
 
     model.addAttribute("requestmoneys", service.findAllWithSort(field, String.valueOf(sort)));
+    return "requestmoneys";
+  }
+
+  @GetMapping("/requestmoneys/filter")
+  public String getRequestMoneysFilter(@RequestParam("filter") Object filter,
+      @RequestParam("field") String field, Model model) {
+
+    model.addAttribute("requestmoneys", service.finaAllWithFilter(field, String.valueOf(filter)));
     return "requestmoneys";
   }
 

@@ -36,4 +36,17 @@ public class RequestMoneyServiceImpl implements RequestMoneyService {
 
     return entityManager.createQuery(query).getResultList();
   }
+
+  @Override
+  public List<RequestMoney> finaAllWithFilter(String field, String like) {
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<RequestMoney> query = cb.createQuery(RequestMoney.class);
+    Root<RequestMoney> root = query.from(RequestMoney.class);
+    if (field.equals("id") || field.equals("paymentSum")) {
+      query.where(cb.equal(root.get(field),like));
+    } else {
+      query.where(cb.like(root.get(field), like));
+    }
+    return entityManager.createQuery(query).getResultList();
+  }
 }

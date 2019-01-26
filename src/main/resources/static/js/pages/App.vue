@@ -105,17 +105,24 @@
 
       </div>
       <notifications group="foo" />
-      <div class = "box">
-        <div class="box__in">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis officiis voluptatibus unde placeat quisquam. Explicabo recusandae laboriosam possimus consequuntur veniam, deleniti dolor veritatis praesentium. Itaque, illo! Id voluptatibus dolorem commodi itaque, amet. Assumenda, neque officia. Voluptatem labore hic voluptas incidunt ullam debitis iste minima rerum quo tenetur, vitae quaerat provident, soluta sunt doloremque aliquid molestiae dolor cupiditate ex. Vitae assumenda voluptatibus, sequi. Ipsa quam hic quis, fugiat voluptatibus ipsum quod quibusdam blanditiis, labore, at voluptates. Enim itaque voluptatum, ex illum? Laudantium cupiditate dicta rerum, alias odio minima qui. Accusamus dolore fugiat excepturi dolor ipsa dicta voluptates vero perferendis saepe quaerat, maxime, nisi. Qui sunt, vitae delectus culpa similique molestias ex quasi totam facere expedita odio inventore cumque, placeat quia non?
+
+
+      <div class="full_info_about_service">
+        <div class="box" v-bind:class="{ 'box_nomore': !isMore}">
+          <h3>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis officiis voluptatibus unde placeat quisquam. Explicabo recusandae laboriosam possimus consequuntur veniam, deleniti dolor veritatis praesentium. Itaque, illo! Id voluptatibus dolorem commodi itaque, amet. Assumenda, neque officia. Voluptatem labore hic voluptas incidunt ullam debitis iste minima rerum quo tenetur, vitae quaerat provident, soluta sunt doloremque aliquid molestiae dolor cupiditate ex. Vitae assumenda voluptatibus, sequi. Ipsa quam hic quis, fugiat voluptatibus ipsum quod quibusdam blanditiis, labore, at voluptates. Enim itaque voluptatum, ex illum? Laudantium cupiditate dicta rerum, alias odio minima qui. Accusamus dolore fugiat excepturi dolor ipsa dicta voluptates vero perferendis saepe quaerat, maxime, nisi. Qui sunt, vitae delectus culpa similique molestias ex quasi totam facere expedita odio inventore cumque, placeat quia non?
+          </h3>
+        </div>
+        <div class="more__button">
+          <span  v-if="!isMore" v-on:click="chengeMoreTrue">Показать всё</span>
+          <span  v-else v-on:click="chengeMoreFalse">Скрыть</span>
         </div>
       </div>
 
-      <div class="full_info_about_service">
-
-      </div>
-
       <div class="footer">
+        <i class="fab fa-facebook fa-2x"></i>
+        <i class="fab fa-twitter fa-2x"></i>
+        <i class="fab fa-vk fa-2x"></i>
       </div>
     </div>
   </div>
@@ -132,6 +139,7 @@
       return {
 
         isActive: true,
+        isMore: false,
         messages: frontendData.messages,
         profile: frontendData.profile
 
@@ -145,7 +153,16 @@
 
       chengeTwo() {
         this.isActive = false;
+      },
+
+      chengeMoreTrue() {
+        this.isMore = true;
+      },
+
+      chengeMoreFalse() {
+        this.isMore = false;
       }
+
     }
   }
 </script>
@@ -362,6 +379,50 @@
   }
 
 
+  .box {
+    margin-left: 5%;
+    margin-right: 35%;
+    margin-top: 4%;
+    float: left;
+    width: 60%;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  .box_nomore {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .more__button {
+    float: left;
+    margin-left: 5%;
+    display: block;
+
+    color: #285ce9;
+  }
+
+  .full_info_about_service:hover {
+    display: block;
+  }
+
+  .footer {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 4%;
+    margin-bottom: 3%;
+    float: left;
+    width: 90%;
+  }
+
+  .footer i {
+    margin-right: 1%;
+    color: blue;
+  }
+
   @media (max-width: 845px) {
     .service {
       margin: auto 1.9%;
@@ -377,6 +438,11 @@
       width: 45%;
       margin-bottom: 2%;
     }
+
+    .box {
+      width: 90%;
+      margin-right: 10%;
+    }
   }
 
   @media (max-width: 590px) {
@@ -387,58 +453,7 @@
     }
   }
 
-  #check {
-    display: none;
-  }
 
-  .show-more {
-    margin-left: 5%;
-  }
-
-  .hide {
-    margin-left: 5%;
-  }
-
-  .box {
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-top: 4%;
-    float: left;
-    width: 90%;
-    margin-bottom: 20px;
-  }
-
-  .box {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-  .textarea--hidden {
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-  }
-
-  .full_info_about_service:hover {
-    background: #f0f0f0;
-    /* Цвет фона */
-    white-space: normal;
-    /* Обычный перенос текста */
-  }
-
-  .footer {
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-top: 4%;
-    margin-bottom: 3%;
-    float: left;
-    width: 90%;
-  }
 
 
 </style>

@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="pay-card-nav">
-      <div class="nav">
-        <router-link to="/pay/pay-any-card">
+      <div class="nav" v-on:click="chengeOne">
+        <router-link to="/"  v-bind:class="{ 'router-active': isActive }">
           <i class="fa fa-credit-card fa-fw fa-1x"></i>
           <span>С карты любого банка</span></router-link></div>
-      <div class="nav">
-        <router-link to="/pay/pay-you-bank">
+      <div class="nav" v-on:click="chengeTwo">
+        <router-link to="pay-you-bank" v-bind:class="{ 'router-active': !isActive }">
           <i class="fa fa-desktop fa-fw fa-1x"></i>
           <span>Из своего интернет-банка</span></router-link></div>
     </div>
@@ -19,7 +19,25 @@
 
 <script>
   export default {
-    name: "Pay"
+    name: "Pay",
+
+    data() {
+      return {
+
+        isActive: true,
+
+      }
+    },
+
+    methods: {
+      chengeOne() {
+        this.isActive = true;
+      },
+
+      chengeTwo() {
+        this.isActive = false;
+      }
+    }
   }
 </script>
 
@@ -47,7 +65,7 @@
     text-decoration: none;
   }
 
-  .router-link-active {
+  .router-active {
     background-color: #f7f7f7;
     cursor: pointer;
   }

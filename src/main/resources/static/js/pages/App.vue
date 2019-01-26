@@ -40,12 +40,12 @@
       </div>
 
       <div class="pay-card-nav">
-        <div class="nav">
-          <router-link to="/pay">
+        <div class="nav" v-on:click="chengeOne">
+          <router-link to="/" v-bind:class="{ 'router-active': isActive }">
             <i class="fa fa-credit-card fa-fw fa-1x"></i>
             <span>Заплатить</span></router-link></div>
-        <div class="nav">
-          <router-link to="/request">
+        <div class="nav" v-on:click="chengeTwo">
+          <router-link to="/request" v-bind:class="{ 'router-active': !isActive }">
             <i class="fa fa-desktop fa-fw fa-1x"></i>
             <span>Запросить</span></router-link></div>
       </div>
@@ -105,11 +105,11 @@
 
       </div>
       <notifications group="foo" />
-      <!--<span class="textarea" [class.textarea&#45;&#45;hidden]="!isMoreShow">-->
-      <!--Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis officiis voluptatibus unde placeat quisquam. Explicabo recusandae laboriosam possimus consequuntur veniam, deleniti dolor veritatis praesentium. Itaque, illo! Id voluptatibus dolorem commodi itaque, amet. Assumenda, neque officia. Voluptatem labore hic voluptas incidunt ullam debitis iste minima rerum quo tenetur, vitae quaerat provident, soluta sunt doloremque aliquid molestiae dolor cupiditate ex. Vitae assumenda voluptatibus, sequi. Ipsa quam hic quis, fugiat voluptatibus ipsum quod quibusdam blanditiis, labore, at voluptates. Enim itaque voluptatum, ex illum? Laudantium cupiditate dicta rerum, alias odio minima qui. Accusamus dolore fugiat excepturi dolor ipsa dicta voluptates vero perferendis saepe quaerat, maxime, nisi. Qui sunt, vitae delectus culpa similique molestias ex quasi totam facere expedita odio inventore cumque, placeat quia non?-->
-      <!--</span>-->
-      <!--<span class="show-more" (click)="isMoreShow=true" [hidden]="isMoreShow" > Показать еще </span>-->
-      <!--<span class="hide" (click)="isMoreShow=false" [hidden]="!isMoreShow"> Спрятать </span>-->
+      <div class = "box">
+        <div class="box__in">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis officiis voluptatibus unde placeat quisquam. Explicabo recusandae laboriosam possimus consequuntur veniam, deleniti dolor veritatis praesentium. Itaque, illo! Id voluptatibus dolorem commodi itaque, amet. Assumenda, neque officia. Voluptatem labore hic voluptas incidunt ullam debitis iste minima rerum quo tenetur, vitae quaerat provident, soluta sunt doloremque aliquid molestiae dolor cupiditate ex. Vitae assumenda voluptatibus, sequi. Ipsa quam hic quis, fugiat voluptatibus ipsum quod quibusdam blanditiis, labore, at voluptates. Enim itaque voluptatum, ex illum? Laudantium cupiditate dicta rerum, alias odio minima qui. Accusamus dolore fugiat excepturi dolor ipsa dicta voluptates vero perferendis saepe quaerat, maxime, nisi. Qui sunt, vitae delectus culpa similique molestias ex quasi totam facere expedita odio inventore cumque, placeat quia non?
+        </div>
+      </div>
 
       <div class="full_info_about_service">
 
@@ -130,8 +130,21 @@
     },
     data() {
       return {
+
+        isActive: true,
         messages: frontendData.messages,
         profile: frontendData.profile
+
+      }
+    },
+
+    methods: {
+      chengeOne() {
+        this.isActive = true;
+      },
+
+      chengeTwo() {
+        this.isActive = false;
       }
     }
   }
@@ -331,7 +344,7 @@
     text-decoration: none;
   }
 
-  .router-link-active {
+  .router-active {
     background-color: #f7f7f7;
     cursor: pointer;
   }
@@ -386,7 +399,7 @@
     margin-left: 5%;
   }
 
-  .textarea {
+  .box {
     margin-left: 5%;
     margin-right: 5%;
     margin-top: 4%;
@@ -395,6 +408,13 @@
     margin-bottom: 20px;
   }
 
+  .box {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
   .textarea--hidden {
 
     overflow: hidden;

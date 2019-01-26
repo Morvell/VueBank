@@ -6,11 +6,11 @@
     <div v-else>
       <div class="header">
         <div id="info">
-          <h3>Индивидуальный предприниматель Швецова Мария Валерьевна</h3><br>
+          <h3>Индивидуальный предприниматель {{this.profile.name}}</h3><br>
           <div id="main_info">
             <span id="telefon">+79049870727</span>
             <a href="www.mary.com">www.mary.com</a>
-            <a href="mailto:mary@tochka.com">mary@tochka.com</a>
+            <a href="mailto:mary@tochka.com">{{this.profile.email}}</a>
           </div>
           <div id="hiden_info">
             <div id="about_company">
@@ -34,7 +34,7 @@
         </div>
         <div id="customer_img">
           <img
-              src="https://is3-ssl.mzstatic.com/image/thumb/Purple118/v4/f5/c7/98/f5c79856-ff84-d9f4-2cad-593ca6be6ea9/AppIcon-1x_U007emarketing-85-220-6.png/246x0w.jpg"
+              :src=profile.userpic
               alt="Ваша фотографияz">
         </div>
       </div>

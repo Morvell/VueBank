@@ -51,7 +51,7 @@ public class PayYouBankController {
     if (repo.findById(reportId).get().getOwner().equals(user.getId())) {
 
       HttpHeaders headers = new HttpHeaders();
-      headers.add("Content-Disposition", "inline; filename=citiesreport.pdf");
+      headers.add("Content-Disposition", "inline; filename=report"+reportId+".pdf");
 
       return ResponseEntity
           .ok()

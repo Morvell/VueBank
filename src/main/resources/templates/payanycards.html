@@ -83,7 +83,7 @@
       <td><a class="btn btn-default" href="#" th:href="${'/admin/payanycard/notsafe/' + item.id}">Not
         safe</a></td>
       <td><a class="btn btn-default" href="#"
-             th:href="${'/admin/payanycards/filter?filter=3000&field=summ'}">Safe</a></td>
+             th:href="${'/admin/payanycard/safe/' + item.id}">Safe</a></td>
     </tr>
   </table>
   <a th:href="${'/admin/payanycard/new'}" class="btn btn-default">New</a>

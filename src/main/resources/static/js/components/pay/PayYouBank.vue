@@ -89,8 +89,13 @@
 <script>
 
   import {and, between, maxLength, minLength, or, required} from 'vuelidate/lib/validators'
+  import Vue from 'vue'
 
   const touchMap = new WeakMap();
+
+  const intervalMap = new Map();
+
+  let flag=false;
 
   export default {
     name: "PayYouBank",
@@ -183,22 +188,42 @@
 
           let id =0;
 
+          window.Vue = Vue;
+
+          Vue.http.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="_csrf"]').content;
+
           this.$resource('/payYouBank').save({}, message).then(result =>
               result.json().then(t => {
                 id = t;
+
                 this.$notify({
                   group: 'foo',
                   title: '',
                   text: 'Данные отправлены'
                 });
 
-                setTimeout(()=>{
-                  var link = document.createElement('a');
-                  link.href = '/payYouBank/' + id;
-                  link.download = 'file.pdf';
-                  link.target='_blank';
-                  link.dispatchEvent(new MouseEvent('click'));
-                },3000);
+                for(let i=0;i<3;i++) {
+
+                  if (flag) {
+                    intervalMap.getAllKeys().forEach((key) => {clearTimeout(touchMap.get(key))});
+                    flag = false;
+                    break;
+                  }
+                    intervalMap.set(i, setTimeout(() => {
+                      this.$resource('/payYouBank/check').get({id}).then(result => {
+
+                        if (result["bodyText"] === "YES" && !flag) {
+                          var link = document.createElement('a');
+                          link.href = '/payYouBank/' + id;
+                          link.download = 'file.pdf';
+                          link.target = '_blank';
+                          link.dispatchEvent(new MouseEvent('click'));
+                          flag = true;
+                        }
+                      },()=>{})
+                    }, 3000*i))
+                  }
+
               }), () => {
             this.$notify({
               group: 'foo',

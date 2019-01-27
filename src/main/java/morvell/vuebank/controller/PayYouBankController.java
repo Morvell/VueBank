@@ -1,6 +1,8 @@
 package morvell.vuebank.controller;
 
 import java.io.ByteArrayInputStream;
+import java.util.HashMap;
+import java.util.Map;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import morvell.vuebank.domain.PayYouBank;
@@ -42,6 +44,15 @@ public class PayYouBankController {
     jms.send(id);
 
     return id;
+  }
+
+  @GetMapping("/check")
+  public String check(Long id){
+
+    if(repo.findById(id).get().getReport() != null) {
+      return "YES";
+    }
+    return "NO";
   }
 
   @GetMapping("{id}")

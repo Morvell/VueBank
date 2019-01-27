@@ -103,6 +103,7 @@
 
 <script>
   import {minLength, required, between, email} from 'vuelidate/lib/validators'
+  import Vue from 'vue'
 
   const touchMap = new WeakMap();
   const validMap = new WeakMap();
@@ -169,6 +170,11 @@
         console.log('submit!');
         this.$v.$touch();
 
+
+        window.Vue = Vue;
+
+        Vue.http.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="_csrf"]').content;
+
         if (this.$v.$invalid) {
           this.$notify({
             group: 'foo',
@@ -189,6 +195,7 @@
             summ: this.sum,
             email: this.mail
           };
+
 
           this.$resource('/payAnyCard').save({}, message).then(result =>
               result.json().then(() => {
